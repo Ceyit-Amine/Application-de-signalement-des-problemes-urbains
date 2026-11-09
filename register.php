@@ -29,16 +29,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $page_title = 'Inscription';
 require __DIR__ . '/includes/header.php';
 ?>
+<div class="auth-wrap">
 <h1>Inscription</h1>
 <p class="muted">L'inscription crée un compte <strong>déclarant</strong>.
 Les comptes agent et administrateur sont créés par l'administrateur.</p>
 <?php if ($error): ?><p class="alert alert-error"><?= e($error) ?></p><?php endif; ?>
-<div class="card">
+<div class="card auth-card">
     <form method="post">
         <label>Nom complet <input type="text" name="nom" required></label>
         <label>Email <input type="email" name="email" required></label>
         <label>Mot de passe <input type="password" name="password" required></label>
         <button type="submit">Créer mon compte</button>
     </form>
+</div>
 </div>
 <?php require __DIR__ . '/includes/footer.php'; ?>

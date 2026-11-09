@@ -20,14 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $page_title = 'Connexion';
 require __DIR__ . '/includes/header.php';
 ?>
+<div class="auth-wrap">
 <h1>Connexion</h1>
 <?php if ($error): ?><p class="alert alert-error"><?= e($error) ?></p><?php endif; ?>
-<div class="card">
+<div class="card auth-card">
     <form method="post">
         <label>Email <input type="email" name="email" required></label>
         <label>Mot de passe <input type="password" name="password" required></label>
         <button type="submit">Se connecter</button>
     </form>
     <p>Pas encore de compte ? <a href="register.php">Créez un compte déclarant</a>.</p>
+</div>
 </div>
 <?php require __DIR__ . '/includes/footer.php'; ?>

@@ -1,42 +1,267 @@
+/* Design update — navbar, login, register only.
+   No HTML content, form fields, links or PHP logic were changed
+   for this update, except adding .auth-wrap / .auth-card wrappers
+   on login.php and register.php so the auth pages can be styled.
+   Inspiration: clean white navbar, blue gradient, rounded cards,
+   soft shadows, glass-like auth card. */
+
+:root {
+    --blue: #2563eb;
+    --blue-dark: #1d4ed8;
+    --blue-light: #eff6ff;
+    --ink: #0f172a;
+    --body: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --radius: 16px;
+}
+
 * { box-sizing: border-box; }
-body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #f1f5f9; color: #1e293b; line-height: 1.5; }
-a { color: #0f766e; }
-.topbar { background: #0f172a; color: #fff; padding: 12px 20px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
-.topbar a { color: #e2e8f0; text-decoration: none; margin-right: 12px; }
-.topbar a:hover { text-decoration: underline; }
-.topbar .logo { font-weight: 700; font-size: 1.1rem; color: #fff; }
-.topbar nav { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
-.user-chip { background: #1e293b; padding: 4px 10px; border-radius: 20px; font-size: 0.9rem; }
-.badge { background: #ef4444; color: #fff; border-radius: 12px; padding: 1px 7px; font-size: 0.8rem; }
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #f8fafc;
+    color: var(--body);
+    line-height: 1.5;
+}
+
+a { color: var(--blue-dark); }
+
+/* ---------- Navbar — white, modern, like the reference image ---------- */
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+    color: var(--ink);
+    padding: 0 24px;
+    min-height: 64px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.topbar a {
+    color: #334155;
+    text-decoration: none;
+    margin-right: 0;
+}
+
+.topbar .logo {
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+}
+
+.topbar nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+}
+
+.topbar nav a {
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.topbar nav a:hover {
+    background: var(--blue-light);
+    color: var(--blue-dark);
+    text-decoration: none;
+}
+
+/* Connexion: outlined pill. Inscription: solid blue pill. */
+.topbar nav a[href="login.php"] {
+    border: 1px solid #bfdbfe;
+    color: var(--blue-dark);
+    background: #fff;
+}
+
+.topbar nav a[href="login.php"]:hover {
+    background: var(--blue-light);
+}
+
+.topbar nav a[href="register.php"] {
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+}
+
+.topbar nav a[href="register.php"]:hover {
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+    color: #fff;
+}
+
+.topbar nav a[href="logout.php"] { color: #b91c1c; }
+.topbar nav a[href="logout.php"]:hover { background: #fef2f2; color: #991b1b; }
+
+.user-chip {
+    background: var(--blue-light);
+    color: #1e40af;
+    border: 1px solid #dbeafe;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.badge {
+    background: #ef4444;
+    color: #fff;
+    border-radius: 999px;
+    padding: 1px 7px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+/* ---------- Layout / cards / forms (kept, restyled) ---------- */
 .container { max-width: 1100px; margin: 0 auto; padding: 24px 16px 48px; }
-h1 { font-size: 1.7rem; margin-top: 0; }
+h1 { font-size: 1.7rem; margin-top: 0; letter-spacing: -0.02em; }
 h2 { margin-top: 32px; }
-.card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+
+.card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+}
+
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-.report-card img, .photo { max-width: 100%; border-radius: 8px; }
-.map { height: 420px; border-radius: 12px; border: 1px solid #e2e8f0; z-index: 1; }
+.report-card img, .photo { max-width: 100%; border-radius: 12px; }
+.map { height: 420px; border-radius: 20px; border: 1px solid var(--border); z-index: 1; box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05); }
 .map-small { height: 300px; }
-form label { display: block; font-weight: 600; margin: 12px 0 4px; }
-input[type="text"], input[type="email"], input[type="password"], input[type="number"], select, textarea { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font: inherit; }
+
+form label { display: block; font-weight: 600; margin: 12px 0 4px; color: var(--ink); }
+input[type="text"], input[type="email"], input[type="password"], input[type="number"], select, textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    font: inherit;
+    background: #fff;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
 textarea { min-height: 110px; resize: vertical; }
-button, .btn { background: #0f766e; color: #fff; border: 0; padding: 10px 18px; border-radius: 8px; cursor: pointer; text-decoration: none; display: inline-block; font: inherit; }
-button:hover, .btn:hover { background: #115e59; }
-.btn-secondary { background: #475569; }
+
+button, .btn {
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    color: #fff;
+    border: 0;
+    padding: 12px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    font: inherit;
+    font-weight: 700;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+button:hover, .btn:hover { filter: brightness(1.05); transform: translateY(-1px); box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35); }
+button:active, .btn:active { transform: translateY(0); }
+.btn-secondary { background: #475569; box-shadow: 0 4px 14px rgba(71, 85, 105, 0.3); }
+
 .filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
 .filters label { margin: 0; font-size: 0.9rem; }
 .filters input, .filters select { width: auto; min-width: 160px; }
-.status { display: inline-block; padding: 3px 10px; border-radius: 20px; color: #fff; font-size: 0.85rem; font-weight: 600; }
-.alert { padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; }
+
+.status { display: inline-block; padding: 3px 10px; border-radius: 999px; color: #fff; font-size: 0.85rem; font-weight: 600; }
+
+.alert { padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; }
 .alert-error { background: #fee2e2; color: #991b1b; }
 .alert-success { background: #dcfce7; color: #166534; }
 .alert-warning { background: #fef3c7; color: #92400e; }
+
 table { width: 100%; border-collapse: collapse; background: #fff; }
-th, td { text-align: left; padding: 10px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
+th, td { text-align: left; padding: 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
 .stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
-.stat { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; }
+.stat { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
 .stat strong { display: block; font-size: 1.8rem; }
 .bar-row { display: flex; gap: 10px; align-items: center; margin: 6px 0; }
 .bar-row span:first-child { min-width: 180px; }
 .bar { height: 18px; background: #0ea5a4; border-radius: 6px; }
-.footer { text-align: center; color: #64748b; padding: 20px; }
-.muted { color: #64748b; }
+.footer { text-align: center; color: var(--muted); padding: 20px; }
+.muted { color: var(--muted); }
+
+/* ---------- Login / Register — blue gradient panel + glass card ---------- */
+.auth-wrap {
+    background: linear-gradient(160deg, #dbeafe 0%, #93c5fd 38%, #3b82f6 72%, #1e40af 100%);
+    border-radius: 24px;
+    padding: 48px 20px 56px;
+    margin-top: 8px;
+    box-shadow: 0 20px 50px rgba(30, 64, 175, 0.25);
+}
+
+.auth-wrap h1 {
+    color: #fff;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 12px rgba(15, 23, 42, 0.25);
+}
+
+.auth-wrap .muted {
+    color: #e0e7ff;
+    text-align: center;
+    max-width: 440px;
+    margin: 0 auto 20px;
+}
+
+.auth-wrap .muted strong { color: #fff; }
+
+.auth-wrap .alert {
+    max-width: 440px;
+    margin: 0 auto 16px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.12);
+}
+
+.auth-card {
+    max-width: 440px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.28);
+}
+
+.auth-card form label { margin-top: 16px; }
+.auth-card form label:first-child { margin-top: 0; }
+.auth-card form input { background: #f8fafc; }
+.auth-card form input:focus { background: #fff; }
+.auth-card button { width: 100%; margin-top: 20px; padding: 13px 20px; border-radius: 12px; }
+.auth-card p { text-align: center; margin-bottom: 0; }
+.auth-card p a { font-weight: 600; }
+
+@media (max-width: 640px) {
+    .topbar { padding: 0 16px; }
+    .topbar nav a { padding: 8px 10px; font-size: 0.9rem; }
+    .auth-wrap { padding: 32px 14px 40px; border-radius: 20px; }
+    .auth-card { padding: 22px; }
+}
